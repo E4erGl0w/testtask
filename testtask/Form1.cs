@@ -70,19 +70,21 @@ namespace testtask
 
             }
             int frames = supersorted.Count / (rows * columns);
-            //int count = 0;
-            //do
-            //{
-            //    for (int j = 0; j < columns; j++)
-            //    {
-            //        richTextBox1.Text += supersorted[count].ToString() + "      ";
-            //        count++;
+            int area = rows* columns;
 
-            //    }
-            //    richTextBox1.Text += "\n";
-            //}
-            //while (count < supersorted.Count);
-            richTextBox1.Text += supersorted.Count.ToString() + " " + frames.ToString();
+            int count = 0;
+            do
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    richTextBox1.Text += supersorted[count].ToString() + "      ";
+                    count++;
+
+                }
+                richTextBox1.Text += "\n";
+            }
+            while (count < supersorted.Count);
+            //richTextBox1.Text += supersorted.Count.ToString() + " " + frames.ToString();
             
 
             //foreach (int num in hth)
