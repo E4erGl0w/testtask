@@ -20,87 +20,87 @@ using System.Reflection.Emit;
 
 namespace testtask
 {
-    
+
     public partial class Form1 : Form
 
     {
-
-       
-
         List<string> lines = new List<string>();
         List<int> ints = new List<int>();
         List<int> supersorted = new List<int>();
 
         public string Pathh { get; set; }
-        public int Ping { get; set; }
+        public decimal Ping { get; set; }
         public int TS { get; set; }
         public int Rows { get; set; }
         public int Columns { get; set; }
         public int Frames { get; set; }
-        public int Area { get; set; }
-
+        float xSub = 0;
+        Graphics g;
         CancellationTokenSource tokenSource = new CancellationTokenSource();
-        CancellationToken token { get; set; }
-        
+
+        private Rectangle richTextBox1Original, richTextBox2Original, label1original, label6original;
+        private Rectangle originalFormSize;
+
         public Form1()
         {
             InitializeComponent();
 
 
-           
+
 
         }
 
-       
-        Graphics g;
+
+
 
         public void Form1_Load(object sender, EventArgs e)
         {
-            
-            textBox2.Text = "C:\\c.csv";
             button1.Text = "START";
             button2.Text = "CANCEL";
-            
+            textBox2.Text = "C:\\cc.csv";
+            textBox1.Text = "500";
+            originalFormSize = new Rectangle(this.Location.X, this.Location.Y, this.Size.Width, this.Size.Height);
+            richTextBox1Original = new Rectangle(richTextBox1.Location.X, richTextBox1.Location.Y, richTextBox1.Width, richTextBox1.Height);
+            richTextBox2Original = new Rectangle(richTextBox2.Location.X, richTextBox2.Location.Y, richTextBox2.Width, richTextBox2.Height);
+            label1original = new Rectangle(label1.Location.X, label1.Location.Y, label1.Width, label1.Height);
+            label6original = new Rectangle(label6.Location.X, label6.Location.Y, label6.Width, label6.Height);
+            g = CreateGraphics();
+            g.DrawRectangle(Pens.Black, 0, 0, 750, 710);
 
 
         }
         async Task Draw(CancellationToken token)
         {
-
+            int pingint = Convert.ToInt32(Ping);
             try
             {
+
                 if (token.IsCancellationRequested)
                 {
                     token.ThrowIfCancellationRequested();
                 }
-
-
-
                 int ii, jj, ff;
                 int counter = 0;
+                g = CreateGraphics();
 
                 for (int l = 0; l < Frames; l++)
                 {
-                    
 
 
+
+
+                    g.DrawRectangle(Pens.Black, xSub + 250, 5, 270 + xSub, 645);
                     ff = l + 1;
-
-
-
-                    richTextBox1.Invoke((MethodInvoker)(() => label4.Text = "Frame " + ff));
                     richTextBox1.Invoke((MethodInvoker)(() => richTextBox1.Text += "Frame " + ff + "\n"));
                     richTextBox2.Invoke((MethodInvoker)(() => richTextBox2.Text += "Frame " + ff + "\n"));
-
-
                     int countTS = 0;
 
                     {
-                        for (int i = 0; i < 43; i++)
+                        for (int i = 0; i < Rows; i++)
                         {
 
                             int j;
-                            for (j = 0; j < 18; j++)
+                            for (j = 0; j < Columns; j++)
                             {
                                 if (token.IsCancellationRequested)
                                 {
@@ -114,47 +114,30 @@ namespace testtask
                                 if (supersorted[counter] > TS && supersorted[counter] <= 1.5 * TS)
                                 {
                                     countTS++;
-                                    g.FillRectangle(Brushes.Yellow, 251 + 15 * j, 21 + 15 * i, 14, 14);
+                                    g.FillRectangle(Brushes.Yellow, xSub / 2 + 251 + 15 * j, 21 + 15 * i, 14, 14);
                                     richTextBox1.Invoke((MethodInvoker)(() => richTextBox1.Text += "[" + countTS + "] " + "X = " + jj + " Y = " + ii + " num: " + supersorted[counter] + "\n"));
                                     richTextBox2.Invoke((MethodInvoker)(() => richTextBox2.Text += "[" + countTS + "] " + "X = " + jj + " Y = " + ii + " num: " + supersorted[counter] + "\n"));
-
-
-
                                 }
-
-                                else if
-                                   (supersorted[counter] > 1.5 * TS && supersorted[counter] <= 2 * TS)
+                                else if (supersorted[counter] > 1.5 * TS && supersorted[counter] <= 2 * TS)
                                 {
                                     countTS++;
-                                    g.FillRectangle(Brushes.Orange, 251 + 15 * j, 21 + 15 * i, 14, 14);
-
+                                    g.FillRectangle(Brushes.Orange, xSub / 2 + 251 + 15 * j, 21 + 15 * i, 14, 14);
                                     richTextBox1.Invoke((MethodInvoker)(() => richTextBox1.Text += "[" + countTS + "] " + "X = " + jj + " Y = " + ii + " num: " + supersorted[counter] + "\n"));
                                     richTextBox2.Invoke((MethodInvoker)(() => richTextBox2.Text += "[" + countTS + "] " + "X = " + jj + " Y = " + ii + " num: " + supersorted[counter] + "\n"));
-
-
-
                                 }
-                                else if
-                                        (supersorted[counter] > 2 * TS)
+                                else if (supersorted[counter] > 2 * TS)
                                 {
                                     countTS++;
-                                    g.FillRectangle(Brushes.Red, 251 + 15 * j, 21 + 15 * i, 14, 14);
+                                    g.FillRectangle(Brushes.Red, xSub / 2 + 251 + 15 * j, 21 + 15 * i, 14, 14);
                                     richTextBox1.Invoke((MethodInvoker)(() => richTextBox1.Text += "[" + countTS + "] " + "X = " + jj + " Y = " + ii + " num: " + supersorted[counter] + "\n"));
                                     richTextBox2.Invoke((MethodInvoker)(() => richTextBox2.Text += "[" + countTS + "] " + "X = " + jj + " Y = " + ii + " num: " + supersorted[counter] + "\n"));
-
-
                                 }
-
-
-
                                 else
                                 {
-                                    g.FillRectangle(Brushes.White, 251 + 15 * j, 21 + 15 * i, 14, 14);
+                                    g.FillRectangle(Brushes.White, xSub / 2 + 251 + 15 * j, 21 + 15 * i, 14, 14);
                                 }
 
                                 counter++;
-
-
                             }
                             j = 0;
 
@@ -162,122 +145,148 @@ namespace testtask
 
                         }
                         countTS = 0;
-                        Thread.Sleep(Ping);
+                        Thread.Sleep(pingint);
                         richTextBox1.Invoke((MethodInvoker)(() => richTextBox1.Text = ""));
                     }
 
                 }
             }
-            catch(System.ArgumentOutOfRangeException)
+            catch (System.ArgumentOutOfRangeException)
             {
-                
+
             }
             catch
             {
+                MessageBox.Show("Exception occurs");
+
             }
 
-            
+
+
         }
+
+
         async void ReadData(string Pathh)
         {
-            using (var reader = new StreamReader(Pathh))
+            try
             {
-
-                while (!reader.EndOfStream)
+                using (var reader = new StreamReader(Pathh))
                 {
 
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
-
-                    foreach (var item in values)
+                    while (!reader.EndOfStream)
                     {
-                        lines.Add(item);
+
+                        var line = reader.ReadLine();
+                        var values = line.Split(',');
+
+                        foreach (var item in values)
+                        {
+                            lines.Add(item);
+                        }
+
                     }
 
                 }
+            }
+            catch (System.ArgumentException)
+            {
+                MessageBox.Show("Error.\n Fill path field");
+            }
+            catch (System.IO.DirectoryNotFoundException)
+            {
+                MessageBox.Show("Error. \nIncorrect path");
+            }
+            catch (System.Reflection.TargetInvocationException)
+            {
 
             }
+
+
         }
         async private void button1_Click(object sender, EventArgs e)
-            {
+        {
             CancellationToken token = new CancellationToken();
+            Pathh = textBox2.Text;
+            Ping = numericUpDown1.Value;
+
+
+
             try
-                {
+            {
 
 
-                Pathh = textBox2.Text;
-                Ping = int.Parse(textBox3.Text);
-                TS = int.Parse(textBox1.Text);
                 await Task.Run(() => ReadData(Pathh));
+                TS = int.Parse(textBox1.Text);
+
                 Rows = int.Parse(lines[0]);
-                    Columns = int.Parse(lines[1]);
-                    foreach (var item in lines)
-                    {
-                        int.TryParse(item, out int num);
-                        ints.Add(num);
-                    }
-                    for (int r = Rows * Columns; r < ints.Count; r++)
-                    {
-                        supersorted.Add(ints[r]);
-
-                    }
-
-                    Frames = supersorted.Count / (Rows * Columns);
-                    g = CreateGraphics();
-                    g.DrawRectangle(Pens.Black, 250, 5, 270, 645);
-
-                    Area = Rows * Columns;
-                    
-
-
-                    await Task.Run(() => Draw(token));
-                
-                   
-
-
-
-
-
-
-                }
-
-                catch (System.ArgumentNullException)
+                Columns = int.Parse(lines[1]);
+                foreach (var item in lines)
                 {
-                    MessageBox.Show("Incorrect data fields");
+                    int.TryParse(item, out int num);
+                    ints.Add(num);
                 }
-                catch(System.IO.FileNotFoundException)
+                for (int r = Rows * Columns; r < ints.Count; r++)
                 {
-                    MessageBox.Show("Incorrect data fields");
-                }
-                catch (System.FormatException)
-                {
-                    MessageBox.Show("Incorrect data fields");
-                }
-                catch(System.ArgumentException)
-                {
-                    MessageBox.Show("Incorrect data fields");
+                    supersorted.Add(ints[r]);
+
                 }
 
+                Frames = supersorted.Count / (Rows * Columns);
 
-
-
-
-
-
+                await Task.Run(() => Draw(token));
+            }
+            catch (System.Reflection.TargetInvocationException)
+            {
 
             }
+            catch (System.FormatException)
+            {
+                MessageBox.Show("Error\nIncorrect file format or threshold");
+            }
+        
+    
+          
+          
+
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             lines.Clear();
             supersorted.Clear();
             ints.Clear();
-            
             tokenSource.Cancel();
+            g = CreateGraphics();
+            g.FillRectangle(Brushes.Black, xSub + 250, 5, 270 + xSub, 660);
+            
+        }
+        
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            g = CreateGraphics();
+            g.FillRectangle(Brushes.Black, 0, 0, 750,710);
+            resizeControl(richTextBox1Original, richTextBox1);
+            resizeControl(richTextBox2Original, richTextBox2);
+            resizeControl(label1original, label1);
+            resizeControl(label6original, label6);
             
             
         }
+
+        private void resizeControl(Rectangle r, Control c)
+        {
+            xSub = (float)this.Width - originalFormSize.Width;
+            float ySub = (float)this.Height;
+            int newX = (int)(r.X + xSub);
+            int newY = (int)r.Y;
+            int newWidth = (int)r.Width;
+            int newHeight = (int)r.Height;
+            c.Location = new Point(newX,newY);
+            c.Size = new Size(newWidth, newHeight);
+        }
+       
+        
     }
-    }
+}
 
     
 
