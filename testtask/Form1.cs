@@ -200,6 +200,14 @@ namespace testtask
             {
 
             }
+            catch (System.IO.FileNotFoundException)
+            {
+                MessageBox.Show("Error. \nIncorrect path");
+            }
+            catch
+            {
+
+            }
 
 
         }
@@ -242,6 +250,10 @@ namespace testtask
             catch (System.FormatException)
             {
                 MessageBox.Show("Error\nIncorrect file format or threshold");
+            }
+            catch
+            {
+
             }
         
     
