@@ -57,8 +57,6 @@ namespace testtask
         {
             button1.Text = "START";
             button2.Text = "CANCEL";
-            textBox2.Text = "C:\\cc.csv";
-            textBox1.Text = "500";
             originalFormSize = new Rectangle(this.Location.X, this.Location.Y, this.Size.Width, this.Size.Height);
             richTextBox1Original = new Rectangle(richTextBox1.Location.X, richTextBox1.Location.Y, richTextBox1.Width, richTextBox1.Height);
             richTextBox2Original = new Rectangle(richTextBox2.Location.X, richTextBox2.Location.Y, richTextBox2.Width, richTextBox2.Height);
