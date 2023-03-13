@@ -53,7 +53,7 @@ namespace testtask
             this.button1.Location = new System.Drawing.Point(71, 123);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(158, 28);
+            this.button1.Size = new System.Drawing.Size(158, 25);
             this.button1.TabIndex = 3;
             this.button1.Text = "START";
             this.button1.UseVisualStyleBackColor = true;
@@ -120,9 +120,9 @@ namespace testtask
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(117, 64);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.Size = new System.Drawing.Size(77, 13);
             this.label5.TabIndex = 12;
-            this.label5.Text = "ping[50:5000]";
+            this.label5.Text = "delay[50:5000]";
             // 
             // button2
             // 
@@ -199,7 +199,6 @@ namespace testtask
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "space";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
